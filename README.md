@@ -3,6 +3,9 @@ Small App used for testing scenarios required for Omnipod Dash pods
 
 ## Note
 
-For now this repository will be empty, I will mostly use it for Project management, until we have test application available, based solely on my code.
+Started work on small App, that can be later used for Dash or even Eros. For now this will 
+contain only only small gui without any real code that could interact with Dash/Eros. 
+
+
 
 
