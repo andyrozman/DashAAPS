@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <AbsoluteLayout
+        android:id="@+id/timeView"
+        android:layout_width="343dp"
+        android:layout_height="67dp"
+        android:layout_x="16dp"
+        android:layout_y="13dp"
+        android:background="@drawable/my_border"
+        tools:layout_editor_absoluteX="-20dp"
+        tools:layout_editor_absoluteY="17dp">
+
+        <TextView
+            android:id="@+id/textTime"
+            android:layout_width="281dp"
+            android:layout_height="29dp"
+            android:layout_x="43dp"
+            android:layout_y="20dp"
+            android:text="01.01.2019    00:00:00"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="39dp" />
+    </AbsoluteLayout>
+
+    <AbsoluteLayout
+        android:id="@+id/basalView"
+        android:layout_width="343dp"
+        android:layout_height="82dp"
+        android:layout_x="16dp"
+        android:layout_y="96dp"
+        android:background="@drawable/my_border"
+        tools:layout_editor_absoluteX="-20dp"
+        tools:layout_editor_absoluteY="17dp">
+
+        <TextView
+            android:id="@+id/textVie3w2"
+            android:layout_width="317dp"
+            android:layout_height="wrap_content"
+            android:layout_x="9dp"
+            android:layout_y="11dp"
+            android:text="Basal Profile"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="116dp"
+            tools:layout_editor_absoluteY="18dp" />
+
+        <TextView
+            android:id="@+id/textVie3w3"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_x="7dp"
+            android:layout_y="34dp"
+            android:text="Current Basal:"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="39dp" />
+    </AbsoluteLayout>
+
+
+    <AbsoluteLayout
+        android:id="@+id/treatmentsView"
+        android:layout_width="341dp"
+        android:layout_height="77dp"
+        android:layout_x="16dp"
+        android:layout_y="196dp"
+        android:background="@drawable/my_border"
+        tools:layout_editor_absoluteX="-71dp"
+        tools:layout_editor_absoluteY="-14dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="319dp"
+            android:layout_height="wrap_content"
+            android:layout_x="10dp"
+            android:layout_y="7dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="11dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="10dp"
+            android:layout_y="34dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="33dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="116dp"
+            android:layout_y="32dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="104dp"
+            tools:layout_editor_absoluteY="26dp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="205dp"
+            android:layout_y="48dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="24dp" />
+    </AbsoluteLayout>
+
+
+    <AbsoluteLayout
+        android:id="@+id/podView"
+        android:layout_width="340dp"
+        android:layout_height="172dp"
+        android:layout_x="17dp"
+        android:layout_y="288dp"
+        android:background="@drawable/my_border"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="163dp">
+
+        <TextView
+            android:id="@+id/textView108"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_x="22dp"
+            android:layout_y="80dp"
+            android:text="Status:"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="65dp"
+            tools:layout_editor_absoluteY="49dp" />
+
+        <TextView
+            android:id="@+id/textView109"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_x="21dp"
+            android:layout_y="52dp"
+            android:text="Address:"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="76dp" />
+
+        <TextView
+            android:id="@+id/textView111"
+            android:layout_width="303dp"
+            android:layout_height="wrap_content"
+            android:layout_x="21dp"
+            android:layout_y="17dp"
+            android:text="Pod"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="100dp" />
+
+
+        <TextView
+            android:id="@+id/textAddress1"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_x="146dp"
+            android:layout_y="52dp"
+            android:text="---"
+            tools:layout_editor_absoluteX="168dp"
+            tools:layout_editor_absoluteY="46dp" />
+
+        <TextView
+            android:id="@+id/textStatus1"
+            android:layout_width="153dp"
+            android:layout_height="wrap_content"
+            android:layout_x="148dp"
+            android:layout_y="80dp"
+            android:text="---"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="122dp" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="109dp"
+            android:text="Activation:"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="132dp"
+            tools:layout_editor_absoluteY="23dp" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="139dp"
+            android:text="Expiration:"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="180dp"
+            tools:layout_editor_absoluteY="223dp" />
+
+        <TextView
+            android:id="@+id/textActivation1"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:layout_x="146dp"
+            android:layout_y="109dp"
+            android:text="1.1.1970    00:00:00"
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="6dp" />
+
+        <TextView
+            android:id="@+id/textExpiration1"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_x="145dp"
+            android:layout_y="141dp"
+            android:text="x days 00:00"
+            tools:layout_editor_absoluteX="149dp"
+            tools:layout_editor_absoluteY="208dp" />
+
+
+    </AbsoluteLayout>
+
+
+
+
+
+</AbsoluteLayout>
