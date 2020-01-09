@@ -6,16 +6,14 @@ package com.androidaps.dashaps.data;
 
 
 import com.androidaps.dashaps.enums.PodState;
-import com.androidaps.dashaps.enums.ProgramState;
-import com.google.common.base.Objects;
 import com.google.gson.annotations.Expose;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.concurrent.TimeUnit;
 
+import info.nightscout.androidaps.plugins.pump.omnipod.driver.OmnipodPumpStatus;
 
-public class Pod  {
+
+public class Pod {
 
     private static final String TAG = "Pod";
 
@@ -33,9 +31,7 @@ public class Pod  {
     @Expose
     private int podState;
 
-
-
-
+    // FIXME Pod will be used instead of OmnipodPumpStatus for now
 
     public Pod() {
 
@@ -45,13 +41,6 @@ public class Pod  {
 
         return n == null || n <= 0L || this.getActivationTime() == null || (this.getActivationTime() <= n && n <= this.getActivationTime() + TimeUnit.HOURS.toMillis(80L));
     }
-
-
-
-    
-
-
-
 
 
     public Long getActivationTime() {
@@ -66,18 +55,10 @@ public class Pod  {
     }
 
 
-
     public long getLotNumber() {
 
         return this.lotNumber;
     }
-
-
-
-
-
-
-
 
 
     public void setActivationTime(final Long activationTime) {
@@ -92,13 +73,10 @@ public class Pod  {
     }
 
 
-
-
     public void setLotNumber(final long lotNumber) {
 
         this.lotNumber = lotNumber;
     }
-
 
 
     public void setPodState(final int podState) {
@@ -111,8 +89,6 @@ public class Pod  {
 
         this.podState = podState.getValue();
     }
-
-
 
 
     public void resetAddress() {
@@ -130,18 +106,10 @@ public class Pod  {
     }
 
 
-
-
-
-
-
-
-
 //    public void setPulsesRemaining(final Short n) {
 //
 //        this.setPulsesRemaining(n);
 //    }
-
 
 
 //    public void setState(final PodStatusType g) {
@@ -178,5 +146,11 @@ public class Pod  {
     public String getPodVersion() {
         return this.podVersion;
     }
+
+
+    public void update(OmnipodPumpStatus pumpStatus, PodUpdateType podUpdateType) {
+
+    }
+
 
 }

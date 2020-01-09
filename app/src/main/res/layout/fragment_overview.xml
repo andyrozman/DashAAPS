@@ -7,10 +7,10 @@
 
     <AbsoluteLayout
         android:id="@+id/timeView"
-        android:layout_width="343dp"
+        android:layout_width="330dp"
         android:layout_height="67dp"
-        android:layout_x="16dp"
-        android:layout_y="13dp"
+        android:layout_x="15dp"
+        android:layout_y="15dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="-20dp"
         tools:layout_editor_absoluteY="17dp">
@@ -29,9 +29,9 @@
 
     <AbsoluteLayout
         android:id="@+id/basalView"
-        android:layout_width="343dp"
-        android:layout_height="82dp"
-        android:layout_x="16dp"
+        android:layout_width="330dp"
+        android:layout_height="85dp"
+        android:layout_x="15dp"
         android:layout_y="96dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="-20dp"
@@ -62,9 +62,9 @@
 
     <AbsoluteLayout
         android:id="@+id/treatmentsView"
-        android:layout_width="341dp"
+        android:layout_width="330dp"
         android:layout_height="77dp"
-        android:layout_x="16dp"
+        android:layout_x="15dp"
         android:layout_y="196dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="-71dp"
@@ -72,41 +72,41 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="319dp"
+            android:layout_width="86dp"
             android:layout_height="wrap_content"
             android:layout_x="10dp"
             android:layout_y="7dp"
-            android:text="TextView"
+            android:text="Bolus: "
             tools:layout_editor_absoluteX="45dp"
             tools:layout_editor_absoluteY="11dp" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:id="@+id/bolusStatus"
+            android:layout_width="212dp"
             android:layout_height="wrap_content"
-            android:layout_x="10dp"
-            android:layout_y="34dp"
-            android:text="TextView"
+            android:layout_x="104dp"
+            android:layout_y="7dp"
+            android:text="-"
             tools:layout_editor_absoluteX="18dp"
             tools:layout_editor_absoluteY="33dp" />
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="89dp"
             android:layout_height="wrap_content"
-            android:layout_x="116dp"
-            android:layout_y="32dp"
-            android:text="TextView"
+            android:layout_x="8dp"
+            android:layout_y="34dp"
+            android:text="Temporary Basal: "
             tools:layout_editor_absoluteX="104dp"
             tools:layout_editor_absoluteY="26dp" />
 
         <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
+            android:id="@+id/tbrStatus"
+            android:layout_width="209dp"
             android:layout_height="wrap_content"
-            android:layout_x="205dp"
-            android:layout_y="48dp"
-            android:text="TextView"
+            android:layout_x="106dp"
+            android:layout_y="35dp"
+            android:text="-"
             tools:layout_editor_absoluteX="205dp"
             tools:layout_editor_absoluteY="24dp" />
     </AbsoluteLayout>
@@ -114,9 +114,9 @@
 
     <AbsoluteLayout
         android:id="@+id/podView"
-        android:layout_width="340dp"
+        android:layout_width="330dp"
         android:layout_height="172dp"
-        android:layout_x="17dp"
+        android:layout_x="15dp"
         android:layout_y="288dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="-1dp"
@@ -220,9 +220,6 @@
 
 
     </AbsoluteLayout>
-
-
-
 
 
 </AbsoluteLayout>

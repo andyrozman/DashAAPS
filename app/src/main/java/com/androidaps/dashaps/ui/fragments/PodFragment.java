@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,6 +113,7 @@ public class PodFragment extends Fragment implements View.OnClickListener {
         buttonInitPod = rootView.findViewById(R.id.buttonInitPod);
         buttonInitPod.setOnClickListener(this);
         buttonDeactivatePod = rootView.findViewById(R.id.buttonDeactivatePod);
+        buttonDeactivatePod.setOnClickListener(this);
         buttonDeactivatePod.setEnabled(false);
 
         return rootView;
@@ -154,10 +156,13 @@ public class PodFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+        Log.d("ddd", "On click view " + v );
+
         if (v.getId()==buttonInitPod.getId()) {
             ActivatePodUiCommand command = new ActivatePodUiCommand();
             command.execute();
-        } else if (v.getId()==buttonInitPod.getId()) {
+        } else if (v.getId()==buttonDeactivatePod.getId()) {
             DeactivatePodUiCommand command = new DeactivatePodUiCommand();
             command.execute();
         }

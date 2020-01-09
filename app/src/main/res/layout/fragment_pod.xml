@@ -7,174 +7,178 @@
     tools:context=".ui.fragments.PodFragment">
 
 
-
-    <!-- TODO: Update blank fragment layout -->
-
-
     <AbsoluteLayout
         android:id="@+id/podDetailedView"
-        android:layout_width="340dp"
+        android:layout_width="330dp"
         android:layout_height="247dp"
-        android:layout_x="24dp"
+        android:layout_x="15dp"
         android:layout_y="222dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="-1dp"
         tools:layout_editor_absoluteY="163dp">
 
+
         <TextView
-            android:id="@+id/textView8"
-            android:layout_width="105dp"
+            android:id="@+id/textView11"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_x="20dp"
-            android:layout_y="103dp"
-            android:text="Status:"
+            android:layout_y="17dp"
+            android:text="Pod Details"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="65dp"
-            tools:layout_editor_absoluteY="49dp" />
+            android:textSize="16dp"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="100dp" />
+
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="105dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_x="21dp"
-            android:layout_y="52dp"
+            android:layout_x="20dp"
+            android:layout_y="50dp"
             android:text="Address:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="109dp"
             tools:layout_editor_absoluteY="76dp" />
 
         <TextView
+            android:id="@+id/textAddress"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_x="135dp"
+            android:layout_y="50dp"
+            android:text="---"
+            tools:layout_editor_absoluteX="168dp"
+            tools:layout_editor_absoluteY="46dp" />
+
+        <TextView
             android:id="@+id/textView10"
-            android:layout_width="102dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_x="20dp"
-            android:layout_y="78dp"
+            android:layout_y="75dp"
             android:text="LOT:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="43dp"
             tools:layout_editor_absoluteY="37dp" />
 
         <TextView
-            android:id="@+id/textView11"
-            android:layout_width="104dp"
-            android:layout_height="wrap_content"
-            android:layout_x="21dp"
-            android:layout_y="17dp"
-            android:text="Pod Details"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="205dp"
-            tools:layout_editor_absoluteY="100dp" />
-
-        <TextView
-            android:id="@+id/textAddress"
-            android:layout_width="134dp"
-            android:layout_height="wrap_content"
-            android:layout_x="147dp"
-            android:layout_y="52dp"
-            android:text="---"
-            tools:layout_editor_absoluteX="168dp"
-            tools:layout_editor_absoluteY="46dp" />
-
-        <TextView
             android:id="@+id/textLOT"
-            android:layout_width="135dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="147dp"
-            android:layout_y="77dp"
+            android:layout_x="135dp"
+            android:layout_y="75dp"
             android:text="00000000"
             tools:layout_editor_absoluteX="174dp"
             tools:layout_editor_absoluteY="89dp" />
 
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="100dp"
+            android:text="Status:"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="65dp"
+            tools:layout_editor_absoluteY="49dp" />
+
         <TextView
             android:id="@+id/textStatus"
-            android:layout_width="136dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="147dp"
-            android:layout_y="103dp"
+            android:layout_x="135dp"
+            android:layout_y="100dp"
             android:text="---"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="122dp" />
 
+
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="102dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_x="20dp"
-            android:layout_y="132dp"
+            android:layout_y="125dp"
             android:text="BLE Version"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="146dp"
             tools:layout_editor_absoluteY="36dp" />
 
         <TextView
+            android:id="@+id/textBLE"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_x="135dp"
+            android:layout_y="125dp"
+            android:text="---"
+            tools:layout_editor_absoluteX="194dp"
+            tools:layout_editor_absoluteY="174dp" />
+
+
+        <TextView
             android:id="@+id/textView14"
-            android:layout_width="105dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_x="20dp"
-            android:layout_y="157dp"
+            android:layout_y="150dp"
             android:text="Pod Version:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="128dp"
             tools:layout_editor_absoluteY="156dp" />
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="104dp"
+            android:id="@+id/textPodVersion"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="19dp"
-            android:layout_y="183dp"
+            android:layout_x="135dp"
+            android:layout_y="150dp"
+            android:text="---"
+            tools:layout_editor_absoluteX="192dp"
+            tools:layout_editor_absoluteY="180dp" />
+
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="175dp"
             android:text="Activation:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="132dp"
             tools:layout_editor_absoluteY="23dp" />
 
         <TextView
-            android:id="@+id/textView16"
-            android:layout_width="110dp"
+            android:id="@+id/textActivation"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="19dp"
-            android:layout_y="209dp"
+            android:layout_x="135dp"
+            android:layout_y="175dp"
+            android:text="1.1.1970    00:00:00"
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="6dp" />
+
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="200dp"
             android:text="Expiration:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="180dp"
             tools:layout_editor_absoluteY="223dp" />
 
         <TextView
-            android:id="@+id/textBLE"
-            android:layout_width="136dp"
-            android:layout_height="wrap_content"
-            android:layout_x="146dp"
-            android:layout_y="132dp"
-            android:text="---"
-            tools:layout_editor_absoluteX="194dp"
-            tools:layout_editor_absoluteY="174dp" />
-
-        <TextView
-            android:id="@+id/textPodVersion"
-            android:layout_width="138dp"
-            android:layout_height="wrap_content"
-            android:layout_x="146dp"
-            android:layout_y="157dp"
-            android:text="---"
-            tools:layout_editor_absoluteX="192dp"
-            tools:layout_editor_absoluteY="180dp" />
-
-        <TextView
-            android:id="@+id/textActivation"
-            android:layout_width="138dp"
-            android:layout_height="wrap_content"
-            android:layout_x="147dp"
-            android:layout_y="185dp"
-            android:text="1.1.1970    00:00:00"
-            tools:layout_editor_absoluteX="143dp"
-            tools:layout_editor_absoluteY="6dp" />
-
-        <TextView
             android:id="@+id/textExpiration"
-            android:layout_width="138dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="147dp"
-            android:layout_y="209dp"
+            android:layout_x="135dp"
+            android:layout_y="200dp"
             android:text="x days 00:00"
             tools:layout_editor_absoluteX="149dp"
             tools:layout_editor_absoluteY="208dp" />
@@ -182,21 +186,31 @@
 
     <Button
         android:id="@+id/buttonInitPod"
-        android:layout_width="241dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_x="60dp"
-        android:layout_y="71dp"
+        android:layout_x="40dp"
+        android:layout_y="30dp"
         android:text="Init Pod"
         tools:layout_editor_absoluteX="111dp"
         tools:layout_editor_absoluteY="80dp" />
 
     <Button
         android:id="@+id/buttonDeactivatePod"
-        android:layout_width="242dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:layout_x="60dp"
-        android:layout_y="147dp"
+        android:layout_x="40dp"
+        android:layout_y="90dp"
         android:text="Deactive Pod"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="144dp" />
+
+    <Button
+        android:id="@+id/buttonResetPod"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_x="40dp"
+        android:layout_y="150dp"
+        android:text="Reset Pod"
         tools:layout_editor_absoluteX="81dp"
         tools:layout_editor_absoluteY="144dp" />
 

@@ -15,14 +15,11 @@ import com.androidaps.dashaps.ui.fragments.PodFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-
 import org.joda.time.LocalDateTime;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Map;
 
+import info.nightscout.androidaps.plugins.pump.common.utils.DateTimeUtil;
 import info.nightscout.androidaps.utils.SP;
 
 public class DashAapsService extends Service {
@@ -41,6 +38,8 @@ public class DashAapsService extends Service {
 
     static DashAapsService instance = new DashAapsService();
 
+    private long nextQueueUpdate = 0L;
+
     public DashAapsService() {
     }
 
@@ -52,9 +51,6 @@ public class DashAapsService extends Service {
     private void doProcess() {
 
         checkTime();
-
-
-
 
 
     }
@@ -75,13 +71,16 @@ public class DashAapsService extends Service {
         timeNew[5] = ldt.getSecondOfMinute();
 
         if (!Arrays.equals(time, timeNew)) {
+            if (OverviewFragment.getInstance() == null)
+                return;
+
             OverviewFragment.getInstance().setTime(timeNew);
 
             if (time[4] != timeNew[4]) {
                 // do minute changes actions
                 OverviewFragment.getInstance().setLocalDateTime(ldt);
 
-                if (PodFragment.getInstance()!=null)
+                if (PodFragment.getInstance() != null)
                     PodFragment.getInstance().setLocalDateTime(ldt);
             }
 
@@ -95,10 +94,11 @@ public class DashAapsService extends Service {
     }
 
 
-
     private Handler handler;
     private Runnable runnable;
     private final int runTime = 5000;
+
+    DashAPSUiQueue queue = null;
 
     @Override
     public void onCreate() {
@@ -108,6 +108,8 @@ public class DashAapsService extends Service {
         this.serviceRunning = true;
 
         loadData();
+
+        queue = MainApp.getQueue();
 
         new Thread(() -> {
 
@@ -119,12 +121,25 @@ public class DashAapsService extends Service {
 
                 //Log.i(TAG, "processLoop");
 
+                doQueueProcess();
+
             } while (serviceRunning);
 
         }).start();
 
     }
 
+    private boolean locked = false;
+
+    private void doQueueProcess() {
+        if (System.currentTimeMillis() > nextQueueUpdate && !locked) {
+            //Log.d(TAG, "Queue Update");
+            locked = true;
+            queue.processQueue();
+            this.nextQueueUpdate = DateTimeUtil.getTimeInFutureFromSeconds(15);
+            locked = false;
+        }
+    }
 
 
     @Override
@@ -143,7 +158,7 @@ public class DashAapsService extends Service {
 
         String data = SP.getString("Pod", null);
 
-        if (data!=null) {
+        if (data != null) {
             Log.d(TAG, "loadData - Pod");
             Pod pod = gsonInstancePretty.fromJson(data, Pod.class);
             this.pod = pod;
@@ -161,11 +176,10 @@ public class DashAapsService extends Service {
     public void saveData() {
         Log.d(TAG, "saveData");
 
-        if (pod!=null) {
+        if (pod != null) {
             SP.putString("Pod", gsonInstancePretty.toJson(pod));
             Log.d(TAG, "saveData - Pod");
         }
-
 
 
 //
@@ -186,7 +200,6 @@ public class DashAapsService extends Service {
         super.onStart(intent, startId);
         Log.i(TAG, "onStart");
     }
-
 
 
 }

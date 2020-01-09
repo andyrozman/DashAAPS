@@ -4,12 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.androidaps.dashaps.DashAapsService;
+import com.androidaps.dashaps.MainActivity;
 import com.androidaps.dashaps.R;
-import com.androidaps.dashaps.ui.fragments.OverviewFragment;
+import com.androidaps.dashaps.data.Pod;
+import com.androidaps.dashaps.enums.PodState;
+import com.androidaps.dashaps.ui.command.CancelBolusUiCommand;
+import com.androidaps.dashaps.ui.command.PodCommandQueueUi;
+import com.androidaps.dashaps.ui.command.SetBolusUiCommand;
+import com.androidaps.dashaps.ui.command.UiStatusType;
+
+import org.joda.time.LocalDateTime;
+
+import info.nightscout.androidaps.utils.OKDialog;
 
 
 /**
@@ -22,9 +36,14 @@ import com.androidaps.dashaps.ui.fragments.OverviewFragment;
  */
 public class MainTreatmentFragment extends Fragment {
 
-
+    private static final String TAG = "MainTreatmentFragment";
     private OnFragmentInteractionListener mListener;
     private static MainTreatmentFragment instance;
+
+    private Button buttonBolusStart;
+    private Button buttonBolusCancel;
+    private EditText bolusAmount;
+
 
     public MainTreatmentFragment() {
         // Required empty public constructor
@@ -59,6 +78,28 @@ public class MainTreatmentFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_treatment, container, false);
 
+        buttonBolusStart = rootView.findViewById(R.id.buttonBolusStart);
+        buttonBolusStart.setOnClickListener(v -> {
+            if (bolusAmount.getText().toString().length() == 0) {
+                Log.e(TAG, "Need to set amount.");
+                OKDialog.show(MainActivity.getInstance(), "Warning", "You need to set the amount, before you can start bolus.", null);
+            } else {
+                buttonBolusStart.setEnabled(false);
+                new SetBolusUiCommand(Double.valueOf(bolusAmount.getText().toString())).execute();
+            }
+        });
+
+        // TODO amount, onStartDisabled, when pod set enabled
+
+        buttonBolusCancel = rootView.findViewById(R.id.buttonBolusCancel);
+        buttonBolusCancel.setOnClickListener(v -> {
+            buttonBolusCancel.setEnabled(false);
+            new CancelBolusUiCommand().execute();
+        });
+        buttonBolusCancel.setEnabled(false);
+
+        bolusAmount = rootView.findViewById(R.id.bolusAmount);
+
         return rootView;
     }
 
@@ -85,6 +126,7 @@ public class MainTreatmentFragment extends Fragment {
         mListener = null;
     }
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -98,4 +140,56 @@ public class MainTreatmentFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+    public void processCommand(PodCommandQueueUi podCommandQueueUi) {
+        podCommandQueueUi.updateUi(this);
+    }
+
+    public void processCommandFinished(PodCommandQueueUi podCommandQueueUi) {
+        podCommandQueueUi.updateUiOnFinalize(this);
+    }
+
+    public void setBolus(UiStatusType statusType) {
+        getActivity().runOnUiThread(() -> {
+
+            if (statusType == UiStatusType.AllDisabled) {
+                buttonBolusStart.setEnabled(false);
+                buttonBolusCancel.setEnabled(false);
+            } else if (statusType == UiStatusType.StartEnabled) {
+                buttonBolusStart.setEnabled(true);
+                buttonBolusCancel.setEnabled(false);
+            } else if (statusType == UiStatusType.CancelEnabled) {
+                buttonBolusStart.setEnabled(false);
+                buttonBolusCancel.setEnabled(true);
+            }
+        });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DashAapsService.pod != null) {
+            setPod(DashAapsService.pod);
+        }
+    }
+
+
+    public void setPod(Pod pod) {
+        LocalDateTime ldt = new LocalDateTime(pod.getActivationTime());
+
+        if (pod.getPodStateObject() == PodState.Active) {
+            setBolus(UiStatusType.StartEnabled);
+            setTBR(UiStatusType.StartEnabled);
+        } else {
+            setBolus(UiStatusType.AllDisabled);
+            setTBR(UiStatusType.AllDisabled);
+        }
+    }
+
+    private void setTBR(UiStatusType startEnabled) {
+        // TODO
+    }
+
+
 }

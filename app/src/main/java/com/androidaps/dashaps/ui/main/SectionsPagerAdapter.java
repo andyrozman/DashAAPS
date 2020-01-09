@@ -38,9 +38,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if (fragments[position]==null) {
             Log.d(TAG, "fragemnt null");
             if (position==0) {
-                fragments[position] = OverviewFragment.newInstance("1", "1");
+                fragments[position] = OverviewFragment.newInstance();
             } else if (position==1) {
-                fragments[position] =  MainTreatmentFragment.newInstance("1", "1");
+                fragments[position] =  MainTreatmentFragment.newInstance();
             } else { //if (position==3) {
                 fragments[position] =  PodFragment.newInstance("1", "1");
             }

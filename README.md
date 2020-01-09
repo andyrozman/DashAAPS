@@ -8,4 +8,13 @@ contain only only small gui without any real code that could interact with Dash/
 
 
 
+## TODO
+
+- TBR
+- Pod Expiration check (in Service)
+- Pod Expiration (Red color, for last 8 hours)
+- Basal Profile (Edit, Send to Pod)
+- Reset Pod
+
+
 

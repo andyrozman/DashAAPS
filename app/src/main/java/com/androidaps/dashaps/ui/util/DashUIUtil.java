@@ -9,6 +9,8 @@ import java.util.Random;
 
 public class DashUIUtil {
 
+    public static final double POD_BOLUS_DELIVERY_RATE = 0.0d;
+
 
     public static String getDateTimeAsString(LocalDateTime ldt) {
         return String.format("%02d.%02d.%04d    %02d:%02d:%02d", //
@@ -18,7 +20,7 @@ public class DashUIUtil {
 
 
     public static String getDateTimeAsString(int[] timeNew) {
-        return String.format("%02d.%02d.%04d    %02d:%02d:%02d", timeNew[0], timeNew[1],timeNew[2],timeNew[3],timeNew[4],timeNew[5]);
+        return String.format("%02d.%02d.%04d    %02d:%02d:%02d", timeNew[0], timeNew[1], timeNew[2], timeNew[3], timeNew[4], timeNew[5]);
     }
 
     public static String getTimeDifference(LocalDateTime podActivation, LocalDateTime currentTime) {
@@ -30,7 +32,7 @@ public class DashUIUtil {
 
             Period period = new Period(podActivation, currentTime);
 
-            int daysLeft = 2-period.getDays();
+            int daysLeft = 2 - period.getDays();
             int hoursLeft = 23 - period.getHours();
             int minuesLeft = 59 - period.getMinutes();
 
@@ -39,17 +41,17 @@ public class DashUIUtil {
     }
 
 
-    public static String randomMACAddress()  {
+    public static String randomMACAddress() {
         Random rand = new Random();
         byte[] macAddr = new byte[6];
         rand.nextBytes(macAddr);
 
-        macAddr[0] = (byte)(macAddr[0] & (byte)254);  //zeroing last 2 bytes to make it unicast and locally adminstrated
+        macAddr[0] = (byte) (macAddr[0] & (byte) 254);  //zeroing last 2 bytes to make it unicast and locally adminstrated
 
         StringBuilder sb = new StringBuilder(18);
-        for(byte b : macAddr){
+        for (byte b : macAddr) {
 
-            if(sb.length() > 0)
+            if (sb.length() > 0)
                 sb.append(":");
 
             sb.append(String.format("%02x", b));
@@ -57,6 +59,19 @@ public class DashUIUtil {
 
 
         return sb.toString();
+    }
+
+
+    public static Duration calculateBolusDuration(double units) {
+        return calculateBolusDuration(units, OmnipodConst.POD_BOLUS_DELIVERY_RATE);
+    }
+
+    private static Duration calculateBolusDuration(double units, double deliveryRate) {
+        return Duration.standardSeconds((long) Math.ceil(units / deliveryRate));
+    }
+
+    public static double getAmountFromDeliveryTime(int seconds) {
+        return seconds * OmnipodConst.POD_BOLUS_DELIVERY_RATE;
     }
 
 

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,7 @@ import android.widget.TextView;
 import com.androidaps.dashaps.DashAapsService;
 import com.androidaps.dashaps.R;
 import com.androidaps.dashaps.data.Pod;
+import com.androidaps.dashaps.ui.command.PodCommandQueueUi;
 import com.androidaps.dashaps.ui.util.DashUIUtil;
 
 import org.joda.time.LocalDateTime;
@@ -34,6 +33,8 @@ public class OverviewFragment extends Fragment {
     private TextView textAddress;
     private TextView textExpiration;
     private TextView textStatus;
+
+    private TextView textBolusStatus;
 
     LocalDateTime podActivation;
 
@@ -58,6 +59,7 @@ public class OverviewFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment OverviewFragment.
      */
     public static OverviewFragment newInstance() {
@@ -83,24 +85,25 @@ public class OverviewFragment extends Fragment {
         textAddress = rootView.findViewById(R.id.textAddress1);
         textExpiration = rootView.findViewById(R.id.textExpiration1);
         textStatus = rootView.findViewById(R.id.textStatus1);
+        textBolusStatus = rootView.findViewById(R.id.bolusStatus);
 
-        sectionsView[0] = (AbsoluteLayout)rootView.findViewById(R.id.timeView);
-        sectionsView[1] = (AbsoluteLayout)rootView.findViewById(R.id.basalView);
-        sectionsView[2] = (AbsoluteLayout)rootView.findViewById(R.id.treatmentsView);
-        sectionsView[3] = (AbsoluteLayout)rootView.findViewById(R.id.podView);
+        sectionsView[0] = (AbsoluteLayout) rootView.findViewById(R.id.timeView);
+        sectionsView[1] = (AbsoluteLayout) rootView.findViewById(R.id.basalView);
+        sectionsView[2] = (AbsoluteLayout) rootView.findViewById(R.id.treatmentsView);
+        sectionsView[3] = (AbsoluteLayout) rootView.findViewById(R.id.podView);
 
 
         int width = rootView.getWidth();
 
-        for (AbsoluteLayout absoluteLayout : sectionsView) {
-            AbsoluteLayout.LayoutParams layoutParams = (AbsoluteLayout.LayoutParams)absoluteLayout.getLayoutParams();
-
-            Log.d(TAG, "Layout Parameters [x=" + layoutParams.x + ", y=" + layoutParams.y +
-                    ", height=" + layoutParams.height + ", width=" + layoutParams.width);
-
-            absoluteLayout.setLayoutParams(new AbsoluteLayout.LayoutParams(width-12, layoutParams.height, layoutParams.x, layoutParams.y));
-            absoluteLayout.invalidate();
-        }
+//        for (AbsoluteLayout absoluteLayout : sectionsView) {
+//            AbsoluteLayout.LayoutParams layoutParams = (AbsoluteLayout.LayoutParams) absoluteLayout.getLayoutParams();
+//
+//            Log.d(TAG, "Layout Parameters [x=" + layoutParams.x + ", y=" + layoutParams.y +
+//                    ", height=" + layoutParams.height + ", width=" + layoutParams.width);
+//
+//            absoluteLayout.setLayoutParams(new AbsoluteLayout.LayoutParams(width - 12, layoutParams.height, layoutParams.x, layoutParams.y));
+//            absoluteLayout.invalidate();
+//        }
 
         //resizeViewX(timeView, width);
 
@@ -113,7 +116,7 @@ public class OverviewFragment extends Fragment {
 //        Log.d(TAG, "Layout Parameters [x=" + layoutParams.x + ", y=" + layoutParams.y +
 //                ", height=" + layoutParams.height + ", width=" + layoutParams.width);
 
-        view.setLayoutParams(new ViewGroup.LayoutParams(width-12, layoutParams.height));
+        view.setLayoutParams(new ViewGroup.LayoutParams(width - 12, layoutParams.height));
         //absoluteLayout.invalidate();
     }
 
@@ -143,7 +146,7 @@ public class OverviewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (DashAapsService.pod!=null) {
+        if (DashAapsService.pod != null) {
             setPod(DashAapsService.pod);
             setLocalDateTime(new LocalDateTime());
         }
@@ -158,7 +161,7 @@ public class OverviewFragment extends Fragment {
     // sets every minute
     public void setLocalDateTime(LocalDateTime ldt) {
         getActivity().runOnUiThread(() -> {
-            if (podActivation!=null) {
+            if (podActivation != null) {
                 this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, ldt));
             }
         });
@@ -177,6 +180,14 @@ public class OverviewFragment extends Fragment {
         });
     }
 
+    public void processCommand(PodCommandQueueUi podCommandQueueUi) {
+        podCommandQueueUi.updateUi(this);
+    }
+
+    public void processCommandFinished(PodCommandQueueUi podCommandQueueUi) {
+        podCommandQueueUi.updateUiOnFinalize(this);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -190,4 +201,12 @@ public class OverviewFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
+
+    public void setBolus(String value) {
+        getActivity().runOnUiThread(() -> {
+            textBolusStatus.setText(value);
+        });
+    }
+
+
 }

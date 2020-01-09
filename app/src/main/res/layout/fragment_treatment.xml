@@ -7,89 +7,122 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="220dp"
-        android:layout_y="395dp"
-        android:text="Button" />
 
     <AbsoluteLayout
         android:id="@+id/view"
-        android:layout_width="303dp"
-        android:layout_height="181dp"
-        android:layout_x="37dp"
-        android:layout_y="77dp"
+        android:layout_width="330dp"
+        android:layout_height="170dp"
+        android:layout_x="15dp"
+        android:layout_y="15dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="-7dp"
         tools:layout_editor_absoluteY="32dp">
 
         <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
+            android:id="@+id/buttonBolusStart"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_x="181dp"
-            android:layout_y="113dp"
-            android:text="Button" />
+            android:layout_x="20dp"
+            android:layout_y="110dp"
+            android:text="Start Bolus" />
+
+        <Button
+            android:id="@+id/buttonBolusCancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_x="155dp"
+            android:layout_y="110dp"
+            android:text="Cancel" />
+
+        <EditText
+            android:id="@+id/bolusAmount"
+            android:layout_width="113dp"
+            android:layout_height="wrap_content"
+            android:layout_x="142dp"
+            android:layout_y="50dp"
+            android:ems="10"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="51dp"
             android:layout_height="wrap_content"
-            android:layout_x="21dp"
+            android:layout_x="20dp"
             android:layout_y="16dp"
-            android:text="TextView"
+            android:text="Bolus"
+            android:textSize="16dp"
             tools:layout_editor_absoluteX="29dp"
             tools:layout_editor_absoluteY="26dp" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:layout_x="145dp"
-            android:layout_y="52dp"
-            android:ems="10"
-            android:inputType="number"
-            tools:layout_editor_absoluteX="88dp"
-            tools:layout_editor_absoluteY="67dp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="21dp"
+            android:layout_x="20dp"
             android:layout_y="68dp"
-            android:text="TextView"
+            android:text="Bolus amount: "
             tools:layout_editor_absoluteX="26dp"
             tools:layout_editor_absoluteY="63dp" />
+
     </AbsoluteLayout>
 
     <AbsoluteLayout
         android:id="@+id/view2"
-        android:layout_width="314dp"
-        android:layout_height="166dp"
-        android:layout_x="30dp"
-        android:layout_y="356dp"
+        android:layout_width="330dp"
+        android:layout_height="170dp"
+        android:layout_x="15dp"
+        android:layout_y="200dp"
         android:background="@drawable/my_border"
         tools:layout_editor_absoluteX="7dp"
-        tools:layout_editor_absoluteY="-2dp" >
+        tools:layout_editor_absoluteY="-2dp">
+
+        <Button
+            android:id="@+id/buttonTbrStart"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="110dp"
+            android:text="Start TBR" />
+
+        <Button
+            android:id="@+id/buttonTbrCancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_x="155dp"
+            android:layout_y="110dp"
+            android:enabled="false"
+            android:text="Cancel" />
+
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_x="17dp"
+            android:layout_x="20dp"
             android:layout_y="16dp"
-            android:text="TextView"
+            android:text="Temporary Basal"
+            android:textSize="16dp"
             tools:layout_editor_absoluteX="39dp"
             tools:layout_editor_absoluteY="23dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="63dp"
+            android:text="TBR Rate (for next 30 min):" />
+
+        <EditText
+            android:id="@+id/editTextTbrAmount"
+            android:layout_width="83dp"
+            android:layout_height="wrap_content"
+            android:layout_x="204dp"
+            android:layout_y="43dp"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+
     </AbsoluteLayout>
 
 

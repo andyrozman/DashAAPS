@@ -7,6 +7,8 @@ public enum PodCommandUIType {
     ChangeBasalProfile,
     SetTemporaryBasal,
     SetBolus,
+    CancelBolus,
+    CancelTemporaryBasal,
 
 
     ;
