@@ -83,25 +83,30 @@ public class SetBolusUiCommand extends PodCommandQueueUi {
     public void updateUi(OverviewFragment overviewFragment) {
         if (cancelled)
             overviewFragment.setBolus(MainApp.gs(R.string.bolus_cancelled, String.format("%.1f", delivered)));
-        else
+        else if (response.success)
             overviewFragment.setBolus(MainApp.gs(R.string.bolus_delivering, String.format("%.1f", amount)));
+        else
+            overviewFragment.setBolus("Error setting Bolus: " + response.comment);
     }
 
     @Override
     public void updateUi(MainTreatmentFragment treatmentFragment) {
         if (cancelled)
             treatmentFragment.setBolus(UiStatusType.AllDisabled);
-        else
+        else if (response.success)
             treatmentFragment.setBolus(UiStatusType.CancelEnabled);
+        else
+            treatmentFragment.setBolus(UiStatusType.AllDisabled);
     }
 
     @Override
     public void updateUiOnFinalize(OverviewFragment overviewFragment) {
-        if (cancelled) {
+        if (cancelled)
             overviewFragment.setBolus(MainApp.gs(R.string.bolus_cancelled, String.format("%.1f", delivered)));
-        } else {
+        else if (response.success)
             overviewFragment.setBolus(String.format("Delivered %.1f U (at %s)", amount, DateTimeUtil.toString(new GregorianCalendar())));
-        }
+        else
+            overviewFragment.setBolus("Error setting Bolus: " + response.comment);
     }
 
     @Override

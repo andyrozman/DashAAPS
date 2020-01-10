@@ -1,6 +1,7 @@
 package com.androidaps.dashaps.ui.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.androidaps.dashaps.DashAapsService;
 import com.androidaps.dashaps.R;
 import com.androidaps.dashaps.data.Pod;
+import com.androidaps.dashaps.enums.PodState;
 import com.androidaps.dashaps.ui.command.PodCommandQueueUi;
 import com.androidaps.dashaps.ui.util.DashUIUtil;
 
@@ -35,6 +37,7 @@ public class OverviewFragment extends Fragment {
     private TextView textStatus;
 
     private TextView textBolusStatus;
+    private TextView textTBRStatus;
 
     LocalDateTime podActivation;
 
@@ -86,6 +89,7 @@ public class OverviewFragment extends Fragment {
         textExpiration = rootView.findViewById(R.id.textExpiration1);
         textStatus = rootView.findViewById(R.id.textStatus1);
         textBolusStatus = rootView.findViewById(R.id.bolusStatus);
+        textTBRStatus = rootView.findViewById(R.id.tbrStatus);
 
         sectionsView[0] = (AbsoluteLayout) rootView.findViewById(R.id.timeView);
         sectionsView[1] = (AbsoluteLayout) rootView.findViewById(R.id.basalView);
@@ -163,21 +167,53 @@ public class OverviewFragment extends Fragment {
         getActivity().runOnUiThread(() -> {
             if (podActivation != null) {
                 this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, ldt));
+            } else {
+                this.textExpiration.setText("Expired");
             }
         });
     }
 
     // sets when pod is set
     public void setPod(Pod pod) {
-        LocalDateTime ldt = new LocalDateTime(pod.getActivationTime());
-        this.podActivation = ldt;
+        if (pod != null) {
+            LocalDateTime ldt = new LocalDateTime(pod.getActivationTime());
+            boolean isWarning = false;
 
-        getActivity().runOnUiThread(() -> {
-            this.textAddress.setText(pod.getAddress());
-            this.textStatus.setText(pod.getPodStateObject().name());
-            this.textActivation.setText(DashUIUtil.getDateTimeAsString(ldt));
-            this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, this.podActivation));
-        });
+            if (pod.getPodStateObject() == PodState.Active) {
+                this.podActivation = ldt;
+
+                if (System.currentTimeMillis() > pod.getPodWarning()) {
+                    isWarning = true;
+                }
+            } else
+                podActivation = null;
+
+            final boolean isWarning2 = isWarning;
+
+            getActivity().runOnUiThread(() -> {
+                this.textAddress.setText(pod.getAddress());
+                this.textStatus.setText(pod.getPodStateObject().name());
+                this.textActivation.setText(DashUIUtil.getDateTimeAsString(ldt));
+                if (podActivation != null) {
+                    this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, this.podActivation));
+                }
+
+                if (isWarning2) {
+                    this.textExpiration.setTextColor(Color.RED);
+                } else {
+                    this.textExpiration.setTextColor(Color.BLACK);
+                }
+
+            });
+        } else {
+            getActivity().runOnUiThread(() -> {
+                this.textAddress.setText("No Pod attached.");
+                this.textStatus.setText("---");
+                this.textActivation.setText("---");
+                this.textExpiration.setText("---");
+                this.textExpiration.setTextColor(Color.BLACK);
+            });
+        }
     }
 
     public void processCommand(PodCommandQueueUi podCommandQueueUi) {
@@ -205,6 +241,13 @@ public class OverviewFragment extends Fragment {
     public void setBolus(String value) {
         getActivity().runOnUiThread(() -> {
             textBolusStatus.setText(value);
+        });
+    }
+
+
+    public void setTBR(String value) {
+        getActivity().runOnUiThread(() -> {
+            textTBRStatus.setText(value);
         });
     }
 

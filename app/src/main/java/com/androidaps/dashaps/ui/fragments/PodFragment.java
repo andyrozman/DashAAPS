@@ -17,6 +17,7 @@ import com.androidaps.dashaps.data.Pod;
 import com.androidaps.dashaps.enums.PodState;
 import com.androidaps.dashaps.ui.command.ActivatePodUiCommand;
 import com.androidaps.dashaps.ui.command.DeactivatePodUiCommand;
+import com.androidaps.dashaps.ui.fragments.treatment.MainTreatmentFragment;
 import com.androidaps.dashaps.ui.util.DashUIUtil;
 
 import org.joda.time.LocalDateTime;
@@ -56,6 +57,7 @@ public class PodFragment extends Fragment implements View.OnClickListener {
     private static PodFragment instance;
     private Button buttonInitPod;
     private Button buttonDeactivatePod;
+    private Button buttonResetPod;
 
 
     public static PodFragment getInstance() {
@@ -115,6 +117,9 @@ public class PodFragment extends Fragment implements View.OnClickListener {
         buttonDeactivatePod = rootView.findViewById(R.id.buttonDeactivatePod);
         buttonDeactivatePod.setOnClickListener(this);
         buttonDeactivatePod.setEnabled(false);
+        buttonResetPod = rootView.findViewById(R.id.buttonResetPod);
+        buttonResetPod.setOnClickListener(this);
+        buttonResetPod.setEnabled(false);
 
         return rootView;
     }
@@ -146,25 +151,30 @@ public class PodFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (DashAapsService.pod!=null) {
+        if (DashAapsService.pod != null) {
             setPod(DashAapsService.pod);
             setLocalDateTime(new LocalDateTime());
         }
     }
 
 
-
     @Override
     public void onClick(View v) {
 
-        Log.d("ddd", "On click view " + v );
+        Log.d("ddd", "On click view " + v);
 
-        if (v.getId()==buttonInitPod.getId()) {
+        if (v.getId() == buttonInitPod.getId()) {
             ActivatePodUiCommand command = new ActivatePodUiCommand();
             command.execute();
-        } else if (v.getId()==buttonDeactivatePod.getId()) {
+        } else if (v.getId() == buttonDeactivatePod.getId()) {
             DeactivatePodUiCommand command = new DeactivatePodUiCommand();
             command.execute();
+        } else if (v.getId() == buttonResetPod.getId()) {
+            DashAapsService.pod = null;
+            DashAapsService.getInstance().saveData();
+            this.setPod(null);
+            OverviewFragment.getInstance().setPod(null);
+            MainTreatmentFragment.getInstance().setPod(null);
         }
     }
 
@@ -172,31 +182,51 @@ public class PodFragment extends Fragment implements View.OnClickListener {
     // sets every minute
     public void setLocalDateTime(LocalDateTime ldt) {
         getActivity().runOnUiThread(() -> {
-            if (this.podActivation!=null) {
+            if (this.podActivation != null) {
                 this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, ldt));
+            } else {
+                this.textExpiration.setText("---");
             }
         });
     }
 
     // sets when pod is set
     public void setPod(Pod pod) {
-        LocalDateTime ldt = new LocalDateTime(pod.getActivationTime());
-        this.podActivation = ldt;
+        if (pod != null) {
+            LocalDateTime ldt = new LocalDateTime(pod.getActivationTime());
+            this.podActivation = ldt;
+        }
 
         getActivity().runOnUiThread(() -> {
-            this.textAddress.setText(pod.getAddress());
-            this.textStatus.setText(pod.getPodStateObject().name());
-            this.textActivation.setText(DashUIUtil.getDateTimeAsString(ldt));
-            this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, this.podActivation));
-            this.textBLE.setText(pod.getBleVersion());
-            this.textPodVersion.setText(pod.getPodVersion());
-            this.textLOT.setText(""+ pod.getLotNumber());
-            if (pod.getPodStateObject()== PodState.Deactivated) {
+            if (pod != null) {
+                this.textAddress.setText(pod.getAddress());
+                this.textStatus.setText(pod.getPodStateObject().name());
+                this.textActivation.setText(DashUIUtil.getDateTimeAsString(podActivation));
+                this.textExpiration.setText(DashUIUtil.getTimeDifference(this.podActivation, this.podActivation));
+                this.textBLE.setText(pod.getBleVersion());
+                this.textPodVersion.setText(pod.getPodVersion());
+                this.textLOT.setText("" + pod.getLotNumber());
+                if (pod.getPodStateObject() == PodState.Deactivated) {
+                    this.buttonInitPod.setEnabled(true);
+                    this.buttonDeactivatePod.setEnabled(false);
+                    this.buttonResetPod.setEnabled(false);
+                } else {
+                    this.buttonInitPod.setEnabled(false);
+                    this.buttonDeactivatePod.setEnabled(true);
+                    this.buttonResetPod.setEnabled(true);
+                }
+            } else {
+                this.textAddress.setText("No Pod attached.");
+                this.textStatus.setText("---");
+                this.textActivation.setText("---");
+                this.textExpiration.setText("---");
+                this.textBLE.setText("---");
+                this.textPodVersion.setText("---");
+                this.textLOT.setText("---");
                 this.buttonInitPod.setEnabled(true);
                 this.buttonDeactivatePod.setEnabled(false);
-            } else {
-                this.buttonInitPod.setEnabled(false);
-                this.buttonDeactivatePod.setEnabled(true);
+                this.buttonResetPod.setEnabled(false);
+
             }
         });
     }

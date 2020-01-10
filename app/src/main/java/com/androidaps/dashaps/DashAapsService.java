@@ -9,9 +9,10 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.androidaps.dashaps.data.Pod;
-import com.androidaps.dashaps.data.PodStateDto;
+import com.androidaps.dashaps.enums.PodState;
 import com.androidaps.dashaps.ui.fragments.OverviewFragment;
 import com.androidaps.dashaps.ui.fragments.PodFragment;
+import com.androidaps.dashaps.ui.fragments.treatment.MainTreatmentFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -34,11 +35,13 @@ public class DashAapsService extends Service {
             .setPrettyPrinting().create();
 
     public static Pod pod;
-    public static PodStateDto podStateDto;
+    //public static PodStateDto podStateDto;
 
     static DashAapsService instance = new DashAapsService();
 
     private long nextQueueUpdate = 0L;
+    private Long podExpire = null;
+    private Long podWarning = null;
 
     public DashAapsService() {
     }
@@ -54,6 +57,19 @@ public class DashAapsService extends Service {
 
 
     }
+
+    private void checkIfPodExpired() {
+
+        if (pod != null && pod.getPodStateObject() == PodState.Active) {
+
+            if (pod.isExpired()) {
+                OverviewFragment.getInstance().setPod(pod);
+                PodFragment.getInstance().setPod(pod);
+                MainTreatmentFragment.getInstance().setPod(pod);
+            }
+        }
+    }
+
 
     private void checkTime() {
 
@@ -138,6 +154,8 @@ public class DashAapsService extends Service {
             queue.processQueue();
             this.nextQueueUpdate = DateTimeUtil.getTimeInFutureFromSeconds(15);
             locked = false;
+
+            checkIfPodExpired();
         }
     }
 
@@ -162,6 +180,8 @@ public class DashAapsService extends Service {
             Log.d(TAG, "loadData - Pod");
             Pod pod = gsonInstancePretty.fromJson(data, Pod.class);
             this.pod = pod;
+
+            this.pod.checkPodExpiry();
         }
 
         //if (pod!=null)
@@ -179,6 +199,8 @@ public class DashAapsService extends Service {
         if (pod != null) {
             SP.putString("Pod", gsonInstancePretty.toJson(pod));
             Log.d(TAG, "saveData - Pod");
+        } else {
+            SP.remove("Pod");
         }
 
 

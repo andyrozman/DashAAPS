@@ -17,11 +17,11 @@ import com.androidaps.dashaps.R;
 import com.androidaps.dashaps.data.Pod;
 import com.androidaps.dashaps.enums.PodState;
 import com.androidaps.dashaps.ui.command.CancelBolusUiCommand;
+import com.androidaps.dashaps.ui.command.CancelTBRUiCommand;
 import com.androidaps.dashaps.ui.command.PodCommandQueueUi;
 import com.androidaps.dashaps.ui.command.SetBolusUiCommand;
+import com.androidaps.dashaps.ui.command.SetTBRUiCommand;
 import com.androidaps.dashaps.ui.command.UiStatusType;
-
-import org.joda.time.LocalDateTime;
 
 import info.nightscout.androidaps.utils.OKDialog;
 
@@ -43,6 +43,9 @@ public class MainTreatmentFragment extends Fragment {
     private Button buttonBolusStart;
     private Button buttonBolusCancel;
     private EditText bolusAmount;
+    private Button buttonTbrStart;
+    private EditText tbrAmount;
+    private Button buttonTbrCancel;
 
 
     public MainTreatmentFragment() {
@@ -89,8 +92,6 @@ public class MainTreatmentFragment extends Fragment {
             }
         });
 
-        // TODO amount, onStartDisabled, when pod set enabled
-
         buttonBolusCancel = rootView.findViewById(R.id.buttonBolusCancel);
         buttonBolusCancel.setOnClickListener(v -> {
             buttonBolusCancel.setEnabled(false);
@@ -99,6 +100,27 @@ public class MainTreatmentFragment extends Fragment {
         buttonBolusCancel.setEnabled(false);
 
         bolusAmount = rootView.findViewById(R.id.bolusAmount);
+
+
+        buttonTbrStart = rootView.findViewById(R.id.buttonTbrStart);
+        buttonTbrStart.setOnClickListener(v -> {
+            if (tbrAmount.getText().toString().length() == 0) {
+                Log.e(TAG, "Need to set amount.");
+                OKDialog.show(MainActivity.getInstance(), "Warning", "You need to set the amount, before you can start bolus.", null);
+            } else {
+                buttonTbrStart.setEnabled(false);
+                new SetTBRUiCommand(Double.valueOf(tbrAmount.getText().toString())).execute();
+            }
+        });
+
+        buttonTbrCancel = rootView.findViewById(R.id.buttonTbrCancel);
+        buttonTbrCancel.setOnClickListener(v -> {
+            buttonTbrCancel.setEnabled(false);
+            new CancelTBRUiCommand().execute();
+        });
+        buttonTbrCancel.setEnabled(false);
+
+        tbrAmount = rootView.findViewById(R.id.editTextTbrAmount);
 
         return rootView;
     }
@@ -169,16 +191,13 @@ public class MainTreatmentFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (DashAapsService.pod != null) {
-            setPod(DashAapsService.pod);
-        }
+
+        setPod(DashAapsService.pod);
     }
 
 
     public void setPod(Pod pod) {
-        LocalDateTime ldt = new LocalDateTime(pod.getActivationTime());
-
-        if (pod.getPodStateObject() == PodState.Active) {
+        if (pod != null && pod.getPodStateObject() == PodState.Active) {
             setBolus(UiStatusType.StartEnabled);
             setTBR(UiStatusType.StartEnabled);
         } else {
@@ -187,8 +206,20 @@ public class MainTreatmentFragment extends Fragment {
         }
     }
 
-    private void setTBR(UiStatusType startEnabled) {
-        // TODO
+    public void setTBR(UiStatusType statusType) {
+        getActivity().runOnUiThread(() -> {
+
+            if (statusType == UiStatusType.AllDisabled) {
+                buttonTbrStart.setEnabled(false);
+                buttonTbrCancel.setEnabled(false);
+            } else if (statusType == UiStatusType.StartEnabled) {
+                buttonTbrStart.setEnabled(true);
+                buttonTbrCancel.setEnabled(false);
+            } else if (statusType == UiStatusType.CancelEnabled) {
+                buttonTbrStart.setEnabled(false);
+                buttonTbrCancel.setEnabled(true);
+            }
+        });
     }
 
 

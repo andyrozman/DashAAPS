@@ -123,10 +123,45 @@
         tools:layout_editor_absoluteY="163dp">
 
         <TextView
-            android:id="@+id/textView108"
-            android:layout_width="105dp"
+            android:id="@+id/textView111"
+            android:layout_width="303dp"
             android:layout_height="wrap_content"
-            android:layout_x="22dp"
+            android:layout_x="20dp"
+            android:layout_y="17dp"
+            android:text="Pod"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="205dp"
+            tools:layout_editor_absoluteY="100dp" />
+
+
+        <TextView
+            android:id="@+id/textView109"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
+            android:layout_y="50dp"
+            android:text="Address:"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="76dp" />
+
+        <TextView
+            android:id="@+id/textAddress1"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_x="135dp"
+            android:layout_y="50dp"
+            android:text="---"
+            tools:layout_editor_absoluteX="168dp"
+            tools:layout_editor_absoluteY="46dp" />
+
+
+        <TextView
+            android:id="@+id/textView108"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_x="20dp"
             android:layout_y="80dp"
             android:text="Status:"
             android:textStyle="bold"
@@ -134,86 +169,54 @@
             tools:layout_editor_absoluteY="49dp" />
 
         <TextView
-            android:id="@+id/textView109"
-            android:layout_width="105dp"
-            android:layout_height="wrap_content"
-            android:layout_x="21dp"
-            android:layout_y="52dp"
-            android:text="Address:"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="109dp"
-            tools:layout_editor_absoluteY="76dp" />
-
-        <TextView
-            android:id="@+id/textView111"
-            android:layout_width="303dp"
-            android:layout_height="wrap_content"
-            android:layout_x="21dp"
-            android:layout_y="17dp"
-            android:text="Pod"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="205dp"
-            tools:layout_editor_absoluteY="100dp" />
-
-
-        <TextView
-            android:id="@+id/textAddress1"
-            android:layout_width="152dp"
-            android:layout_height="wrap_content"
-            android:layout_x="146dp"
-            android:layout_y="52dp"
-            android:text="---"
-            tools:layout_editor_absoluteX="168dp"
-            tools:layout_editor_absoluteY="46dp" />
-
-        <TextView
             android:id="@+id/textStatus1"
-            android:layout_width="153dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="148dp"
+            android:layout_x="135dp"
             android:layout_y="80dp"
             android:text="---"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="122dp" />
 
+
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="104dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_x="20dp"
-            android:layout_y="109dp"
+            android:layout_y="110dp"
             android:text="Activation:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="132dp"
             tools:layout_editor_absoluteY="23dp" />
 
         <TextView
+            android:id="@+id/textActivation1"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_x="135dp"
+            android:layout_y="110dp"
+            android:text="1.1.1970    00:00:00"
+            tools:layout_editor_absoluteX="143dp"
+            tools:layout_editor_absoluteY="6dp" />
+
+        <TextView
             android:id="@+id/textView16"
-            android:layout_width="110dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_x="20dp"
-            android:layout_y="139dp"
+            android:layout_y="140dp"
             android:text="Expiration:"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="180dp"
             tools:layout_editor_absoluteY="223dp" />
 
         <TextView
-            android:id="@+id/textActivation1"
-            android:layout_width="157dp"
-            android:layout_height="wrap_content"
-            android:layout_x="146dp"
-            android:layout_y="109dp"
-            android:text="1.1.1970    00:00:00"
-            tools:layout_editor_absoluteX="143dp"
-            tools:layout_editor_absoluteY="6dp" />
-
-        <TextView
             android:id="@+id/textExpiration1"
-            android:layout_width="155dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_x="145dp"
-            android:layout_y="141dp"
+            android:layout_x="135dp"
+            android:layout_y="140dp"
             android:text="x days 00:00"
             tools:layout_editor_absoluteX="149dp"
             tools:layout_editor_absoluteY="208dp" />
